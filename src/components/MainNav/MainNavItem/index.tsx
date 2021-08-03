@@ -5,9 +5,9 @@ import Link from "next/link";
 import { Heading, HStack, Icon } from "@chakra-ui/react";
 
 type Props = {
-  icon: As,
-  href: string
-}
+  icon: As;
+  href: string;
+};
 
 const MainNavItem: FC<Props> = ({ children, icon, href }) => {
   const { pathname } = useRouter();
@@ -23,17 +23,16 @@ const MainNavItem: FC<Props> = ({ children, icon, href }) => {
           pr={{ base: 3, lg: 6 }}
           borderRadius="full"
           color={isActive ? "blue.500" : "gray.700"}
-          _hover={{ background: "blue.50", color: "blue.500" }}>
-          <Icon boxSize={8} as={icon}/>
-          <Heading
-            size="md"
-            display={{ base: 'none', lg: 'initial' }}>
+          _hover={{ background: "blue.50", color: "blue.500" }}
+        >
+          <Icon boxSize={8} as={icon} />
+          <Heading size="md" display={{ base: "none", lg: "initial" }}>
             {children}
           </Heading>
         </HStack>
       </a>
     </Link>
   );
-}
+};
 
 export default MainNavItem;

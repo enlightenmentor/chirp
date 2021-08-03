@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import Head from "next/head";
 import NextLink from "next/link";
-import { useForm } from 'react-hook-form';
+import { useForm } from "react-hook-form";
 import {
   Button,
   Center,
@@ -13,25 +13,25 @@ import {
   Icon,
   Input,
   VStack,
-  Link
+  Link,
 } from "@chakra-ui/react";
 import { FiTwitter } from "react-icons/fi";
 import { BiUserPlus } from "react-icons/bi";
 
 type FormData = {
-  username: string,
-  email: string,
-  password: string
-}
+  username: string;
+  email: string;
+  password: string;
+};
 
 const Register: FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors }
+    formState: { errors },
   } = useForm<FormData>();
 
-  const handleRegister = handleSubmit(data => console.log(data));
+  const handleRegister = handleSubmit((data) => console.log(data));
 
   return (
     <>
@@ -40,8 +40,14 @@ const Register: FC = () => {
       </Head>
       <Container>
         <Center pt={8}>
-          <VStack as="form" w="sm" align="stretch" spacing={8} onSubmit={handleRegister}>
-            <Icon as={FiTwitter} color="blue.500" boxSize={10}/>
+          <VStack
+            as="form"
+            w="sm"
+            align="stretch"
+            spacing={8}
+            onSubmit={handleRegister}
+          >
+            <Icon as={FiTwitter} color="blue.500" boxSize={10} />
             <Heading>Create Chirp account</Heading>
             <VStack width="100%">
               <FormControl isRequired>
@@ -49,7 +55,8 @@ const Register: FC = () => {
                 <Input
                   type="text"
                   placeholder="Username"
-                  {...register('username', { required: true })}/>
+                  {...register("username", { required: true })}
+                />
                 <FormErrorMessage>{errors.username}</FormErrorMessage>
               </FormControl>
               <FormControl isRequired>
@@ -57,7 +64,8 @@ const Register: FC = () => {
                 <Input
                   type="text"
                   placeholder="Email address"
-                  {...register('email', { required: true })}/>
+                  {...register("email", { required: true })}
+                />
                 <FormErrorMessage>{errors.email}</FormErrorMessage>
               </FormControl>
               <FormControl isRequired>
@@ -65,7 +73,8 @@ const Register: FC = () => {
                 <Input
                   type="password"
                   placeholder="Password"
-                  {...register('password', { required: true })}/>
+                  {...register("password", { required: true })}
+                />
                 <FormErrorMessage>{errors.password}</FormErrorMessage>
               </FormControl>
             </VStack>
@@ -76,7 +85,8 @@ const Register: FC = () => {
                 borderRadius="full"
                 size="lg"
                 w="100%"
-                leftIcon={<Icon as={BiUserPlus} boxSize={6}/>}>
+                leftIcon={<Icon as={BiUserPlus} boxSize={6} />}
+              >
                 Create account
               </Button>
               <NextLink href="/login">
@@ -88,6 +98,6 @@ const Register: FC = () => {
       </Container>
     </>
   );
-}
+};
 
 export default Register;
