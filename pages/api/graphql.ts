@@ -7,7 +7,7 @@ import { resolvers } from "../../src/graphql/resolvers";
 const schema = buildSchemaSync({
   resolvers,
   validate: false,
-  emitSchemaFile: {
+  emitSchemaFile: process.env["VERCEL_ENV"] === "development" && {
     path: resolve(__dirname, "../../../../src/graphql/schema.gql"),
     commentDescriptions: true
   }
