@@ -11,10 +11,6 @@ generator client {
   provider = "prisma-client-js"
 }
 
-generator typegraphql {
-  provider = "typegraphql-prisma"
-}
-
 model Post {
   id        String   @id @default(cuid())
   content   String
