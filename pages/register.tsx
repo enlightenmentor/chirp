@@ -15,8 +15,7 @@ import {
   VStack,
   Link,
 } from "@chakra-ui/react";
-import { FiTwitter } from "react-icons/fi";
-import { BiUserPlus } from "react-icons/bi";
+import { BiUserPlus, BiMessageDots } from "react-icons/bi";
 
 type FormData = {
   username: string;
@@ -47,7 +46,7 @@ const Register: FC = () => {
             spacing={8}
             onSubmit={handleRegister}
           >
-            <Icon as={FiTwitter} color="blue.500" boxSize={10} />
+            <Icon as={BiMessageDots} color="blue.500" boxSize={10} />
             <Heading>Create Chirp account</Heading>
             <VStack width="100%">
               <FormControl isRequired>

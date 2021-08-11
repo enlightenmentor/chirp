@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Box, Container, HStack, StackDivider } from "@chakra-ui/react";
+import { Box, Container, Stack, StackDivider } from "@chakra-ui/react";
 import MainNav from "../MainNav";
 
 const MainLayout: FC = ({ children }) => (
@@ -10,18 +10,20 @@ const MainLayout: FC = ({ children }) => (
       lg: "container.lg",
       xl: "container.xl",
     }}
+    px={{ base: 0, sm: 4 }}
   >
-    <HStack
+    <Stack
+      direction={{ base: "column-reverse", sm: "row" }}
       divider={<StackDivider borderColor="gray.100" />}
       spacing={0}
-      align="start"
+      align="stretch"
       minH="100vh"
     >
       <MainNav />
       <Box as="main" flex="1">
         {children}
       </Box>
-    </HStack>
+    </Stack>
   </Container>
 );
 

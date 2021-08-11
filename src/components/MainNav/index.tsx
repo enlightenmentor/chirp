@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { Button, VStack } from "@chakra-ui/react";
+import { Stack, VStack } from "@chakra-ui/react";
 import {
   BiHomeAlt,
   BiBell,
@@ -8,11 +8,21 @@ import {
 } from "react-icons/bi";
 import MainNavItem from "./MainNavItem";
 import HomeLink from "../HomeLink";
+import CreatePostButton from "./CreatePostButton";
 
 const MainNav: FC = () => (
-  <VStack align="start" pr={4}>
-    <HomeLink />
-    <VStack align="start" spacing={0}>
+  <VStack
+    align="stretch"
+    pt={{ base: 0, sm: 2 }}
+    pr={{ base: 0, sm: 4 }}
+    spacing={{ base: 0, sm: 2 }}>
+    <HomeLink display={{ base: "none", sm: "flex" }}/>
+    <Stack
+      direction={{ base: "row", sm: "column" }}
+      align="start"
+      justify="space-evenly"
+      spacing={0}
+      py={{ base: 1, sm: 0 }}>
       <MainNavItem href="/home" icon={BiHomeAlt}>
         Home
       </MainNavItem>
@@ -25,16 +35,8 @@ const MainNav: FC = () => (
       <MainNavItem href="/profile" icon={BiUser}>
         Profile
       </MainNavItem>
-    </VStack>
-    <Button
-      borderRadius="full"
-      colorScheme="blue"
-      variant="solid"
-      size="lg"
-      w="100%"
-    >
-      Chirp
-    </Button>
+    </Stack>
+    <CreatePostButton/>
   </VStack>
 );
 

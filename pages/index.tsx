@@ -11,7 +11,7 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { BiLogInCircle, BiUserPlus } from "react-icons/bi";
-import { FiTwitter } from "react-icons/fi";
+import { BiMessageDots } from "react-icons/bi";
 
 const Root: FC = () => (
   <>
@@ -25,7 +25,7 @@ const Root: FC = () => (
         flex={1}
         display={{ base: "none", md: "flex" }}
       >
-        <Icon as={FiTwitter} color="white" boxSize="60%" />
+        <Icon as={BiMessageDots} color="white" boxSize="60%" />
       </Center>
       <VStack
         align="start"
@@ -35,7 +35,7 @@ const Root: FC = () => (
         w={{ base: "none", md: "md", lg: "lg", xl: "xl" }}
         minW="50vw"
       >
-        <Icon as={FiTwitter} color="blue.500" boxSize={12} />
+        <Icon as={BiMessageDots} color="blue.500" boxSize={12} />
         <Heading size="3xl">Here and Now</Heading>
         <Heading size="lg">Join Chirp today</Heading>
         <Stack
