@@ -3,6 +3,6 @@ import { Post } from "../models";
 
 @InputType()
 export class PostInput implements Partial<Post> {
-  @Field(type => String)
+  @Field(() => String)
   content!: string;
 }

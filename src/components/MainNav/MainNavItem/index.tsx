@@ -25,7 +25,7 @@ const MainNavItem: FC<Props> = ({ children, icon, href }) => {
           color={isActive ? "blue.500" : "gray.700"}
           _hover={{ background: "blue.50", color: "blue.500" }}
         >
-          <Icon as={icon}  boxSize={{ base: 6, sm: 8 }}/>
+          <Icon as={icon} boxSize={{ base: 6, sm: 8 }} />
           <Heading size="md" display={{ base: "none", lg: "initial" }}>
             {children}
           </Heading>

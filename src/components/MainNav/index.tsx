@@ -15,14 +15,16 @@ const MainNav: FC = () => (
     align="stretch"
     pt={{ base: 0, sm: 2 }}
     pr={{ base: 0, sm: 4 }}
-    spacing={{ base: 0, sm: 2 }}>
-    <HomeLink display={{ base: "none", sm: "flex" }}/>
+    spacing={{ base: 0, sm: 2 }}
+  >
+    <HomeLink display={{ base: "none", sm: "flex" }} />
     <Stack
       direction={{ base: "row", sm: "column" }}
       align="start"
       justify="space-evenly"
       spacing={0}
-      py={{ base: 1, sm: 0 }}>
+      py={{ base: 1, sm: 0 }}
+    >
       <MainNavItem href="/home" icon={BiHomeAlt}>
         Home
       </MainNavItem>
@@ -36,7 +38,7 @@ const MainNav: FC = () => (
         Profile
       </MainNavItem>
     </Stack>
-    <CreatePostButton/>
+    <CreatePostButton />
   </VStack>
 );
 

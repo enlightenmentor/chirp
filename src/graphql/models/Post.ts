@@ -2,12 +2,12 @@ import { ObjectType, Field } from "type-graphql";
 
 @ObjectType()
 export class Post {
-  @Field(type => String)
+  @Field(() => String)
   id!: string;
 
-  @Field(type => String)
+  @Field(() => String)
   content!: string;
 
-  @Field(type => Date)
+  @Field(() => Date)
   createdAt!: Date;
 }
