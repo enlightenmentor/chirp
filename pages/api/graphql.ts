@@ -9,8 +9,8 @@ const schema = buildSchemaSync({
   validate: false,
   emitSchemaFile: process.env["VERCEL_ENV"] === "development" && {
     path: resolve(__dirname, "../../../../src/graphql/schema.gql"),
-    commentDescriptions: true
-  }
+    commentDescriptions: true,
+  },
 });
 
 export const config = {
@@ -21,5 +21,5 @@ export const config = {
 
 export default graphqlHTTP({
   schema,
-  graphiql: true
+  graphiql: true,
 });
