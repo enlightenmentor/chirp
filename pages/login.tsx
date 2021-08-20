@@ -1,6 +1,7 @@
 import type { FC } from "react";
 import Head from "next/head";
 import NextLink from "next/link";
+import { signIn } from "next-auth/client";
 import { useForm } from "react-hook-form";
 import {
   Button,
@@ -18,18 +19,26 @@ import {
 import { BiLogInCircle, BiMessageDots } from "react-icons/bi";
 
 type FormData = {
-  usernameOrEmail: string;
+  username: string;
   password: string;
 };
 
-const Register: FC = () => {
+const Login: FC = () => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
 
-  const handleRegister = handleSubmit((data) => console.log(data));
+  const handleRegister = handleSubmit(async ({ username, password }) => {
+    console.log({ username, password });
+    const res = await signIn("credentials", {
+      redirect: false,
+      username,
+      password,
+    });
+    console.log(res);
+  });
 
   return (
     <>
@@ -49,13 +58,13 @@ const Register: FC = () => {
             <Heading>Sign into Chirp</Heading>
             <VStack width="100%">
               <FormControl isRequired>
-                <FormLabel>Username/Email</FormLabel>
+                <FormLabel>Username</FormLabel>
                 <Input
                   type="text"
-                  placeholder="Username/Email"
-                  {...register("usernameOrEmail", { required: true })}
+                  placeholder="Username"
+                  {...register("username", { required: true })}
                 />
-                <FormErrorMessage>{errors.usernameOrEmail}</FormErrorMessage>
+                <FormErrorMessage>{errors.username}</FormErrorMessage>
               </FormControl>
               <FormControl isRequired>
                 <FormLabel>Password</FormLabel>
@@ -91,4 +100,4 @@ const Register: FC = () => {
   );
 };
 
-export default Register;
+export default Login;
