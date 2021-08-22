@@ -30,11 +30,14 @@ const MainNav: FC = () => {
 
   return (
     <Flex
-      w="220px"
+      w={{ base: "100%", sm: "max-content", lg: "220px" }}
       direction="column"
       pt={{ base: 0, sm: 2 }}
       pb={{ base: 0, sm: 4 }}
       pr={{ base: 0, sm: 4 }}
+      borderRightWidth={{ base: "0", sm: "1px" }}
+      borderTopWidth={{ base: "1px", sm: "0" }}
+      borderColor="gray.100"
     >
       <VStack align="stretch" spacing={{ base: 0, sm: 4 }}>
         {isSMWide && <HomeLink size={isLGWide ? 8 : 6} withText={isLGWide} />}

@@ -15,7 +15,6 @@ const MainLayout: FC = ({ children }) => (
   >
     <Stack
       direction={{ base: "column-reverse", sm: "row" }}
-      divider={<StackDivider borderColor="gray.100" />}
       spacing={0}
       align="stretch"
       minH="100vh"
@@ -24,7 +23,12 @@ const MainLayout: FC = ({ children }) => (
       <Box as="main" flex="1">
         {children}
       </Box>
-      <Box w="220px" display={{ base: "none", xl: "flex" }} />
+      <Box
+        w="220px"
+        display={{ base: "none", xl: "flex" }}
+        borderLeft="1px"
+        borderColor="gray.100"
+      />
     </Stack>
   </Container>
 );
