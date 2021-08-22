@@ -2,24 +2,31 @@ import type { FC } from "react";
 import type { GetServerSideProps } from "next";
 import type { Session } from "next-auth";
 import Head from "next/head";
-import { getSession } from "next-auth/client";
+import { getSession, useSession } from "next-auth/client";
 import MainLayout from "../src/components/MainLayout";
 import { LINK } from "../src/constants";
+import ProfilePage from "../src/components/ProfilePage";
 
 type Props = {
   session: Session | null;
 };
 
-const Messages: FC = () => (
-  <>
-    <Head>
-      <title>Messages / Chirp</title>
-    </Head>
-    <MainLayout>Messages</MainLayout>
-  </>
-);
+const Profile: FC = () => {
+  const [session] = useSession();
 
-export default Messages;
+  return (
+    <>
+      <Head>
+        <title>@{session?.user?.name} / Chirp</title>
+      </Head>
+      <MainLayout>
+        <ProfilePage />
+      </MainLayout>
+    </>
+  );
+};
+
+export default Profile;
 
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context

@@ -1,7 +1,10 @@
 import type { FC } from "react";
 import Head from "next/head";
 import NextLink from "next/link";
-import { signIn } from "next-auth/client";
+import type { GetServerSideProps } from "next";
+import { useRouter } from "next/router";
+import type { Session } from "next-auth";
+import { signIn, getSession } from "next-auth/client";
 import { useForm } from "react-hook-form";
 import {
   Button,
@@ -17,6 +20,11 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { BiLogInCircle, BiMessageDots } from "react-icons/bi";
+import { LINK } from "../../src/constants";
+
+type Props = {
+  session: Session | null;
+};
 
 type FormData = {
   username: string;
@@ -24,6 +32,7 @@ type FormData = {
 };
 
 const Login: FC = () => {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -37,7 +46,9 @@ const Login: FC = () => {
       username,
       password,
     });
-    console.log(res);
+    if (!res?.error && res?.ok) {
+      router.replace(LINK.HOME);
+    }
   });
 
   return (
@@ -87,7 +98,7 @@ const Login: FC = () => {
               >
                 Sign in
               </Button>
-              <NextLink href="/register">
+              <NextLink href={LINK.REGISTER}>
                 <Link color="blue.500">
                   Don&lsquo;t have an account yet? Create one
                 </Link>
@@ -101,3 +112,24 @@ const Login: FC = () => {
 };
 
 export default Login;
+
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
+  const session = await getSession({ req: context.req });
+
+  if (session?.user) {
+    return {
+      redirect: {
+        destination: LINK.HOME,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+};

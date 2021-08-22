@@ -1,8 +1,9 @@
 import type { FC } from "react";
-import type { As } from "@chakra-ui/react";
+import { As, useMediaQuery } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
-import { Heading, HStack, Icon } from "@chakra-ui/react";
+import { Text, HStack, Icon } from "@chakra-ui/react";
+import { BREAKPOINT } from "../../../constants";
 
 type Props = {
   icon: As;
@@ -10,8 +11,9 @@ type Props = {
 };
 
 const MainNavItem: FC<Props> = ({ children, icon, href }) => {
-  const { pathname } = useRouter();
-  const isActive = pathname === href;
+  const { asPath } = useRouter();
+  const [isLGWide] = useMediaQuery(`(min-width: ${BREAKPOINT.LG})`);
+  const isActive = asPath === href;
 
   return (
     <Link href={href}>
@@ -23,12 +25,14 @@ const MainNavItem: FC<Props> = ({ children, icon, href }) => {
           pr={{ base: 3, lg: 6 }}
           borderRadius="full"
           color={isActive ? "blue.500" : "gray.700"}
-          _hover={{ background: "blue.50", color: "blue.500" }}
+          _hover={{ background: "blue.50" }}
         >
-          <Icon as={icon} boxSize={{ base: 6, sm: 8 }} />
-          <Heading size="md" display={{ base: "none", lg: "initial" }}>
-            {children}
-          </Heading>
+          <Icon as={icon} boxSize={6} />
+          {isLGWide && (
+            <Text size="sm" fontWeight={isActive ? "bold" : "normal"}>
+              {children}
+            </Text>
+          )}
         </HStack>
       </a>
     </Link>

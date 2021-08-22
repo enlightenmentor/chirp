@@ -1,4 +1,7 @@
 import type { FC } from "react";
+import type { GetServerSideProps } from "next";
+import type { Session } from "next-auth";
+import { getSession } from "next-auth/client";
 import Head from "next/head";
 import Link from "next/link";
 import {
@@ -8,72 +11,100 @@ import {
   HStack,
   Icon,
   Stack,
+  useMediaQuery,
   VStack,
 } from "@chakra-ui/react";
 import { BiLogInCircle, BiUserPlus } from "react-icons/bi";
 import { BiMessageDots } from "react-icons/bi";
+import { BREAKPOINT, LINK } from "../src/constants";
 
-const Root: FC = () => (
-  <>
-    <Head>
-      <title>Chirp</title>
-    </Head>
-    <HStack h="100vh" align="stretch">
-      <Center
-        bg="blue.400"
-        p={4}
-        flex={1}
-        display={{ base: "none", md: "flex" }}
-      >
-        <Icon as={BiMessageDots} color="white" boxSize="60%" />
-      </Center>
-      <VStack
-        align="start"
-        p={{ base: 4, sm: 8 }}
-        pt={{ base: 16, sm: 16, md: 32 }}
-        spacing={6}
-        w={{ base: "none", md: "md", lg: "lg", xl: "xl" }}
-        minW="50vw"
-      >
-        <Icon as={BiMessageDots} color="blue.500" boxSize={12} />
-        <Heading size="3xl">Here and Now</Heading>
-        <Heading size="lg">Join Chirp today</Heading>
-        <Stack
+type Props = {
+  session: Session | null;
+};
+
+const Root: FC = () => {
+  const [isMDWide] = useMediaQuery(`(min-width: ${BREAKPOINT.MD})`);
+
+  return (
+    <>
+      <Head>
+        <title>Chirp</title>
+      </Head>
+      <HStack h="100vh" align="stretch">
+        {isMDWide && (
+          <Center bg="blue.400" p={4} flex={1}>
+            <Icon as={BiMessageDots} color="white" boxSize="60%" />
+          </Center>
+        )}
+        <VStack
           align="start"
-          direction={{ base: "column", sm: "row" }}
-          spacing={4}
-          pt={8}
+          p={{ base: 4, sm: 8 }}
+          pt={{ base: 16, sm: 16, md: 32 }}
+          spacing={6}
+          w={{ base: "none", md: "md", lg: "lg", xl: "xl" }}
+          minW="50vw"
         >
-          <Link href="/login">
-            <a>
-              <Button
-                size="lg"
-                variant="outline"
-                colorScheme="blue"
-                borderRadius="full"
-                leftIcon={<Icon as={BiLogInCircle} boxSize={6} />}
-              >
-                Sign in
-              </Button>
-            </a>
-          </Link>
-          <Link href="/register">
-            <a>
-              <Button
-                size="lg"
-                variant="outline"
-                colorScheme="blue"
-                borderRadius="full"
-                leftIcon={<Icon as={BiUserPlus} boxSize={6} />}
-              >
-                Create account
-              </Button>
-            </a>
-          </Link>
-        </Stack>
-      </VStack>
-    </HStack>
-  </>
-);
+          <Icon as={BiMessageDots} color="blue.500" boxSize={12} />
+          <Heading size="3xl">Here and Now</Heading>
+          <Heading size="lg">Join Chirp today</Heading>
+          <Stack
+            align="start"
+            direction={{ base: "column", sm: "row" }}
+            spacing={4}
+            pt={8}
+          >
+            <Link href={LINK.LOGIN}>
+              <a>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  colorScheme="blue"
+                  borderRadius="full"
+                  leftIcon={<Icon as={BiLogInCircle} boxSize={6} />}
+                >
+                  Sign in
+                </Button>
+              </a>
+            </Link>
+            <Link href={LINK.REGISTER}>
+              <a>
+                <Button
+                  size="lg"
+                  variant="outline"
+                  colorScheme="blue"
+                  borderRadius="full"
+                  leftIcon={<Icon as={BiUserPlus} boxSize={6} />}
+                >
+                  Create account
+                </Button>
+              </a>
+            </Link>
+          </Stack>
+        </VStack>
+      </HStack>
+    </>
+  );
+};
 
 export default Root;
+
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
+  const session = await getSession({ req: context.req });
+
+  if (session?.user) {
+    return {
+      redirect: {
+        destination: LINK.HOME,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+};

@@ -1,6 +1,9 @@
 import type { FC } from "react";
 import Head from "next/head";
 import NextLink from "next/link";
+import type { GetServerSideProps } from "next";
+import type { Session } from "next-auth";
+import { getSession } from "next-auth/client";
 import { useForm } from "react-hook-form";
 import {
   Button,
@@ -16,6 +19,11 @@ import {
   Link,
 } from "@chakra-ui/react";
 import { BiUserPlus, BiMessageDots } from "react-icons/bi";
+import { LINK } from "../../src/constants";
+
+type Props = {
+  session: Session | null;
+};
 
 type FormData = {
   username: string;
@@ -88,7 +96,7 @@ const Register: FC = () => {
               >
                 Create account
               </Button>
-              <NextLink href="/login">
+              <NextLink href={LINK.LOGIN}>
                 <Link color="blue.500">Already have an account? Sign in</Link>
               </NextLink>
             </VStack>
@@ -100,3 +108,24 @@ const Register: FC = () => {
 };
 
 export default Register;
+
+export const getServerSideProps: GetServerSideProps<Props> = async (
+  context
+) => {
+  const session = await getSession({ req: context.req });
+
+  if (session?.user) {
+    return {
+      redirect: {
+        destination: LINK.HOME,
+        permanent: false,
+      },
+    };
+  }
+
+  return {
+    props: {
+      session,
+    },
+  };
+};
