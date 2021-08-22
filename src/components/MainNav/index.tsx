@@ -30,6 +30,7 @@ const MainNav: FC = () => {
 
   return (
     <Flex
+      w="220px"
       direction="column"
       pt={{ base: 0, sm: 2 }}
       pb={{ base: 0, sm: 4 }}

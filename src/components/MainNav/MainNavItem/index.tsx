@@ -1,5 +1,5 @@
 import type { FC } from "react";
-import { As, useMediaQuery } from "@chakra-ui/react";
+import { As } from "@chakra-ui/react";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import { Text, HStack, Icon } from "@chakra-ui/react";
@@ -12,7 +12,6 @@ type Props = {
 
 const MainNavItem: FC<Props> = ({ children, icon, href }) => {
   const { asPath } = useRouter();
-  const [isLGWide] = useMediaQuery(`(min-width: ${BREAKPOINT.LG})`);
   const isActive = asPath === href;
 
   return (
@@ -28,11 +27,13 @@ const MainNavItem: FC<Props> = ({ children, icon, href }) => {
           _hover={{ background: "blue.50" }}
         >
           <Icon as={icon} boxSize={6} />
-          {isLGWide && (
-            <Text size="sm" fontWeight={isActive ? "bold" : "normal"}>
-              {children}
-            </Text>
-          )}
+          <Text
+            size="sm"
+            fontWeight={isActive ? "bold" : "normal"}
+            display={{ base: "none", lg: "initial" }}
+          >
+            {children}
+          </Text>
         </HStack>
       </a>
     </Link>
