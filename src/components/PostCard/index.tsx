@@ -11,7 +11,7 @@ import { BiComment, BiRepost, BiHeart, BiShareAlt } from "react-icons/bi";
 import { Serialisable } from "../../utils/serialisable";
 
 type Props = {
-  post?: Serialisable<Post>;
+  post: Serialisable<Post> | null;
 };
 
 const PostCard: FC<Props> = ({ post }) => (
