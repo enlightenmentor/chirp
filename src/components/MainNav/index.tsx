@@ -22,10 +22,7 @@ import ProfileNavCard from "./ProfileNavCard";
 
 const MainNav: FC = () => {
   const [session] = useSession();
-  const [isSMWide, isLGWide] = useMediaQuery([
-    `(min-width: ${BREAKPOINT.SM})`,
-    `(min-width: ${BREAKPOINT.LG})`,
-  ]);
+  const [isLGWide] = useMediaQuery(`(min-width: ${BREAKPOINT.LG})`);
   const user = session?.user;
 
   return (
@@ -40,7 +37,9 @@ const MainNav: FC = () => {
       borderColor="gray.100"
     >
       <VStack align="stretch" spacing={{ base: 0, sm: 4 }}>
-        {isSMWide && <HomeLink size={isLGWide ? 8 : 6} withText={isLGWide} />}
+        <Box display={{ base: "none", sm: "flex" }}>
+          <HomeLink size={isLGWide ? 8 : 6} withText={isLGWide} />
+        </Box>
         <Stack
           direction={{ base: "row", sm: "column" }}
           align="start"
@@ -70,12 +69,10 @@ const MainNav: FC = () => {
         </Stack>
         <CreatePostButton />
       </VStack>
-      {isSMWide && (
-        <>
-          <Spacer />
-          <ProfileNavCard />
-        </>
-      )}
+      <Spacer display={{ base: "none", sm: "flex" }} />
+      <Box display={{ base: "none", sm: "flex" }}>
+        <ProfileNavCard />
+      </Box>
     </Flex>
   );
 };
