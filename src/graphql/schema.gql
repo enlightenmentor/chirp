@@ -8,9 +8,10 @@ scalar DateTime
 
 type Mutation {
   createPost(post: PostInput!): Post!
-  createUser(user: UserInput!): User!
+  createUser(user: UserCreateInput!): User!
   deletePost(id: String!): Post
   deleteUser(id: String!): User
+  updateUser(id: String!, user: UserUpdateInput!): User!
 }
 
 type Post {
@@ -26,27 +27,34 @@ input PostInput {
 type Query {
   post(id: String!): Post
   posts: [Post!]!
-  user(username: String!): User
+  user(name: String!): User
   users: [User!]!
 }
 
 type User {
-  coverPhoto: String
+  cover: String
   createdAt: DateTime!
   displayName: String
   email: String!
-  hash: String!
   id: String!
-  profilePhoto: String
-  salt: String!
-  username: String!
+  image: String
+  name: String!
 }
 
-input UserInput {
-  coverPhoto: String
+input UserCreateInput {
+  cover: String
   displayName: String
   email: String!
+  image: String
+  name: String!
   password: String!
-  profilePhoto: String
-  username: String!
+}
+
+input UserUpdateInput {
+  cover: String
+  displayName: String
+  email: String
+  image: String
+  name: String
+  password: String
 }

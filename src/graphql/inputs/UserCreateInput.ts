@@ -2,9 +2,9 @@ import { InputType, Field } from "type-graphql";
 import { User } from "../models";
 
 @InputType()
-export class UserInput implements Partial<User> {
+export class UserCreateInput implements Partial<User> {
   @Field(() => String)
-  username!: string;
+  name!: string;
 
   @Field(() => String)
   email!: string;
@@ -16,8 +16,8 @@ export class UserInput implements Partial<User> {
   displayName?: string;
 
   @Field(() => String, { nullable: true })
-  profilePhoto?: string;
+  image?: string;
 
   @Field(() => String, { nullable: true })
-  coverPhoto?: string;
+  cover?: string;
 }

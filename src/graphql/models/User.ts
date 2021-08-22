@@ -6,25 +6,19 @@ export class User {
   id!: string;
 
   @Field(() => String)
-  username!: string;
+  name!: string;
 
   @Field(() => String)
   email!: string;
-
-  @Field(() => String)
-  hash!: string;
-
-  @Field(() => String)
-  salt!: string;
 
   @Field(() => String, { nullable: true })
   displayName?: string;
 
   @Field(() => String, { nullable: true })
-  profilePhoto?: string;
+  image?: string;
 
   @Field(() => String, { nullable: true })
-  coverPhoto?: string;
+  cover?: string;
 
   @Field(() => Date)
   createdAt!: Date;

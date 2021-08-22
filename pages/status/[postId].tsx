@@ -1,47 +1,45 @@
 import type { FC } from "react";
 import type { GetServerSideProps } from "next";
+import type { Session } from "next-auth";
 import Head from "next/head";
+import { getSession } from "next-auth/client";
 import { Post as Post, PrismaClient } from "@prisma/client";
 import MainLayout from "../../src/components/MainLayout";
 import PostCard from "../../src/components/PostCard";
 import serialisable, { Serialisable } from "../../src/utils/serialisable";
-import { useSession, getSession } from "next-auth/client";
 
 type Props = {
-  post?: Serialisable<Post>;
+  session: Session | null;
+  post: Serialisable<Post> | null;
 };
 
-const PostPage: FC<Props> = ({ post }) => {
-  const [session, loading] = useSession();
-
-  console.log({ session, loading });
-
-  return (
-    <>
-      <Head>
-        <title>Post &quot;{post?.content}&quot; / Chirp</title>
-      </Head>
-      <MainLayout>
-        <PostCard post={post} />
-      </MainLayout>
-    </>
-  );
-};
+const PostPage: FC<Props> = ({ post }) => (
+  <>
+    <Head>
+      <title>Post &quot;{post?.content}&quot; / Chirp</title>
+    </Head>
+    <MainLayout>
+      <PostCard post={post} />
+    </MainLayout>
+  </>
+);
 
 const prisma = new PrismaClient();
 
 export const getServerSideProps: GetServerSideProps<Props> = async (
   context
 ) => {
-  console.log(await getSession({ req: context.req }));
   const id = context.params?.postId as string | undefined;
-  const post = id
-    ? serialisable(await prisma.post.findUnique({ where: { id } })) || undefined
-    : undefined;
+  const [session, dbPost] = await Promise.all([
+    getSession({ req: context.req }),
+    prisma.post.findUnique({ where: { id } }),
+  ]);
+  const post = serialisable(dbPost);
 
   return {
     props: {
       post,
+      session,
     },
   };
 };

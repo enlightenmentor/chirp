@@ -1,2 +1,3 @@
 export { PostInput } from "./PostInput";
-export { UserInput } from "./UserInput";
+export { UserCreateInput } from "./UserCreateInput";
+export { UserUpdateInput } from "./UserUpdateInput";
