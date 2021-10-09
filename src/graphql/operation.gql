@@ -1,0 +1,33 @@
+query Posts {
+  posts {
+    ...PostFragment
+  }
+}
+
+query Post($id: String!) {
+  post(id: $id) {
+    ...PostFragment
+  }
+}
+
+mutation RegisterUser($user: UserCreateInput!) {
+  createUser(user: $user) {
+    ...UserFragment
+  }
+}
+
+fragment PostFragment on Post {
+  id
+  content
+  createdAt
+}
+
+fragment UserFragment on User {
+  id
+  name
+  email
+  cover
+  createdAt
+  image
+  displayName
+}

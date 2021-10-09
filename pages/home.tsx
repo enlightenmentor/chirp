@@ -2,20 +2,29 @@ import type { FC } from "react";
 import type { GetServerSideProps } from "next";
 import type { Session } from "next-auth";
 import Head from "next/head";
+import Link from "next/link";
 import { getSession } from "next-auth/client";
 import MainLayout from "../src/components/MainLayout";
 import { LINK } from "../src/constants";
+import { gqlClient, Post } from "../src/graphql/sdk";
 
 type Props = {
   session: Session | null;
+  posts: Post[];
 };
 
-const Home: FC = () => (
+const Home: FC<Props> = ({ posts }) => (
   <>
     <Head>
       <title>Home / Chirp</title>
     </Head>
-    <MainLayout>Home</MainLayout>
+    <MainLayout>
+      {posts.map(({ id, content }) => (
+        <Link href={LINK.STATUS("", id)}>
+          <a>{content}</a>
+        </Link>
+      ))}
+    </MainLayout>
   </>
 );
 
@@ -35,9 +44,12 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
     };
   }
 
+  const { posts = [] } = await gqlClient.Posts();
+
   return {
     props: {
       session,
+      posts,
     },
   };
 };

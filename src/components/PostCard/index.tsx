@@ -8,10 +8,9 @@ import {
 } from "@chakra-ui/react";
 import { Post } from "@prisma/client";
 import { BiComment, BiRepost, BiHeart, BiShareAlt } from "react-icons/bi";
-import { Serialisable } from "../../utils/serialisable";
 
 type Props = {
-  post: Serialisable<Post> | null;
+  post: Post | null;
 };
 
 const PostCard: FC<Props> = ({ post }) => (
