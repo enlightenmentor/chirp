@@ -20,7 +20,7 @@ const Home: FC<Props> = ({ posts }) => (
     </Head>
     <MainLayout>
       {posts.map(({ id, content }) => (
-        <Link href={LINK.STATUS("", id)}>
+        <Link href={LINK.STATUS("", id)} key={id}>
           <a>{content}</a>
         </Link>
       ))}
