@@ -36,7 +36,7 @@ const Login: FC = () => {
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormData>();
 
   const handleRegister = handleSubmit(async ({ username, password }) => {
@@ -95,6 +95,7 @@ const Login: FC = () => {
                 size="lg"
                 w="100%"
                 leftIcon={<Icon as={BiLogInCircle} boxSize={6} />}
+                isLoading={isSubmitting}
               >
                 Sign in
               </Button>

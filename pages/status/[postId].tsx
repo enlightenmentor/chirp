@@ -5,7 +5,7 @@ import Head from "next/head";
 import { getSession } from "next-auth/client";
 import MainLayout from "../../src/components/MainLayout";
 import PostCard from "../../src/components/PostCard";
-import { gqlClient, Post } from "../../src/graphql/sdk";
+import { gql, Post } from "../../src/graphql/sdk";
 
 type Props = {
   session: Session | null;
@@ -29,7 +29,7 @@ export const getServerSideProps: GetServerSideProps<Props> = async (
   const id = context.params?.postId as string | undefined;
   const [session, { post = null }] = await Promise.all([
     getSession({ req: context.req }),
-    id ? gqlClient.Post({ id }) : {},
+    id ? gql.Post({ id }) : {},
   ]);
 
   return {

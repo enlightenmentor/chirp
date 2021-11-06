@@ -70,7 +70,7 @@ const MainNav: FC = () => {
         <CreatePostButton />
       </VStack>
       <Spacer display={{ base: "none", sm: "flex" }} />
-      <Box display={{ base: "none", sm: "flex" }}>
+      <Box display={{ base: "none", sm: "flex" }} width="100%">
         <ProfileNavCard />
       </Box>
     </Flex>

@@ -1,6 +1,7 @@
-import type { FC } from "react";
+import { useState, FC } from "react";
 import Head from "next/head";
 import NextLink from "next/link";
+import { useRouter } from "next/router";
 import type { GetServerSideProps } from "next";
 import type { Session } from "next-auth";
 import { getSession } from "next-auth/client";
@@ -17,28 +18,41 @@ import {
   Input,
   VStack,
   Link,
+  useToast
 } from "@chakra-ui/react";
 import { BiUserPlus, BiMessageDots } from "react-icons/bi";
 import { LINK } from "../../src/constants";
+import { gql } from "../../src/graphql/sdk";
 
 type Props = {
   session: Session | null;
 };
 
 type FormData = {
-  username: string;
+  name: string;
   email: string;
   password: string;
 };
 
 const Register: FC = () => {
+  const toast = useToast();
+  const router = useRouter();
   const {
     register,
     handleSubmit,
-    formState: { errors },
+    formState: { errors, isSubmitting },
   } = useForm<FormData>();
 
-  const handleRegister = handleSubmit((data) => console.log(data));
+  const handleRegister = handleSubmit(async (user) => {
+    await gql.RegisterUser({ user });
+    toast({
+      title: "New User Created",
+      description: `User ${user.name} successully created`,
+      status: 'success',
+      isClosable: true
+    });
+    router.push(LINK.LOGIN);
+  });
 
   return (
     <>
@@ -62,15 +76,17 @@ const Register: FC = () => {
                 <Input
                   type="text"
                   placeholder="Username"
-                  {...register("username", { required: true })}
+                  autoComplete="off"
+                  {...register("name", { required: true })}
                 />
-                <FormErrorMessage>{errors.username}</FormErrorMessage>
+                <FormErrorMessage>{errors.name}</FormErrorMessage>
               </FormControl>
               <FormControl isRequired>
                 <FormLabel>Email address</FormLabel>
                 <Input
                   type="text"
                   placeholder="Email address"
+                  autoComplete="off"
                   {...register("email", { required: true })}
                 />
                 <FormErrorMessage>{errors.email}</FormErrorMessage>
@@ -80,6 +96,7 @@ const Register: FC = () => {
                 <Input
                   type="password"
                   placeholder="Password"
+                  autoComplete="off"
                   {...register("password", { required: true })}
                 />
                 <FormErrorMessage>{errors.password}</FormErrorMessage>
@@ -93,6 +110,7 @@ const Register: FC = () => {
                 size="lg"
                 w="100%"
                 leftIcon={<Icon as={BiUserPlus} boxSize={6} />}
+                isLoading={isSubmitting}
               >
                 Create account
               </Button>
