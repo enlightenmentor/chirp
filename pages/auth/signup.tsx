@@ -1,8 +1,8 @@
-import { FC } from "react";
-import Head from "next/head";
-import NextLink from "next/link";
-import { useRouter } from "next/router";
-import { useForm } from "react-hook-form";
+import { FC } from 'react'
+import Head from 'next/head'
+import NextLink from 'next/link'
+import { useRouter } from 'next/router'
+import { useForm } from 'react-hook-form'
 import {
   Button,
   Center,
@@ -15,37 +15,37 @@ import {
   Input,
   VStack,
   Link,
-  useToast
-} from "@chakra-ui/react";
-import { BiUserPlus, BiMessageDots } from "react-icons/bi";
-import { LINK } from "../../src/constants";
-import { gql } from "../../src/graphql/sdk";
+  useToast,
+} from '@chakra-ui/react'
+import { BiUserPlus, BiMessageDots } from 'react-icons/bi'
+import { LINK } from '../../src/constants'
+import { gql } from '../../src/graphql/sdk'
 
 type FormData = {
-  name: string;
-  email: string;
-  password: string;
-};
+  name: string
+  email: string
+  password: string
+}
 
 const Register: FC = () => {
-  const toast = useToast();
-  const router = useRouter();
+  const toast = useToast()
+  const router = useRouter()
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>();
+  } = useForm<FormData>()
 
   const handleRegister = handleSubmit(async (user) => {
-    await gql.RegisterUser({ user });
+    await gql.RegisterUser({ user })
     toast({
-      title: "New User Created",
+      title: 'New User Created',
       description: `User ${user.name} successully created`,
       status: 'success',
-      isClosable: true
-    });
-    router.push(LINK.SIGNIN);
-  });
+      isClosable: true,
+    })
+    router.push(LINK.SIGNIN)
+  })
 
   return (
     <>
@@ -70,7 +70,7 @@ const Register: FC = () => {
                   type="text"
                   placeholder="Username"
                   autoComplete="off"
-                  {...register("name", { required: true })}
+                  {...register('name', { required: true })}
                 />
                 <FormErrorMessage>{errors.name}</FormErrorMessage>
               </FormControl>
@@ -80,7 +80,7 @@ const Register: FC = () => {
                   type="text"
                   placeholder="Email address"
                   autoComplete="off"
-                  {...register("email", { required: true })}
+                  {...register('email', { required: true })}
                 />
                 <FormErrorMessage>{errors.email}</FormErrorMessage>
               </FormControl>
@@ -90,7 +90,7 @@ const Register: FC = () => {
                   type="password"
                   placeholder="Password"
                   autoComplete="off"
-                  {...register("password", { required: true })}
+                  {...register('password', { required: true })}
                 />
                 <FormErrorMessage>{errors.password}</FormErrorMessage>
               </FormControl>
@@ -115,7 +115,7 @@ const Register: FC = () => {
         </Center>
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register

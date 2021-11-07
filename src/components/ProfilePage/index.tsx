@@ -1,6 +1,5 @@
-import type { FC } from "react";
-import { useRouter } from "next/router";
-import { signOut } from "next-auth/react";
+import type { FC } from 'react'
+import { signOut } from 'next-auth/react'
 import {
   AspectRatio,
   Avatar,
@@ -11,20 +10,18 @@ import {
   Icon,
   Spacer,
   VStack,
-} from "@chakra-ui/react";
-import { BiLogOutCircle } from "react-icons/bi";
-import type { User } from "../../../src/graphql/sdk";
+} from '@chakra-ui/react'
+import { BiLogOutCircle } from 'react-icons/bi'
+import type { User } from '../../../src/graphql/sdk'
 
 type Props = {
-  user: User | null;
-};
+  user: User | null
+}
 
 const ProfilePage: FC<Props> = ({ user }) => {
-  const router = useRouter();
-
   const handleSignOut = async () => {
-    await signOut();
-  };
+    await signOut()
+  }
 
   return (
     <Flex direction="column">
@@ -32,12 +29,12 @@ const ProfilePage: FC<Props> = ({ user }) => {
         <Box w="100%" bg="blue.100" />
       </AspectRatio>
       <VStack mx="4" align="stretch">
-        <Flex mt={{ base: "-14vw", sm: "-44px", md: "-60px" }} align="center">
+        <Flex mt={{ base: '-14vw', sm: '-44px', md: '-60px' }} align="center">
           <Avatar
             borderWidth="4px"
             borderColor="white"
             src={user?.image as string}
-            boxSize={{ base: "28vw", sm: "88px", md: "120px" }}
+            boxSize={{ base: '28vw', sm: '88px', md: '120px' }}
           />
           <Spacer />
           <Button
@@ -54,7 +51,7 @@ const ProfilePage: FC<Props> = ({ user }) => {
         <Heading size="lg">@{user?.name}</Heading>
       </VStack>
     </Flex>
-  );
-};
+  )
+}
 
-export default ProfilePage;
+export default ProfilePage

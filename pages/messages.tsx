@@ -1,6 +1,6 @@
-import type { FC } from "react";
-import Head from "next/head";
-import MainLayout from "../src/components/MainLayout";
+import type { FC } from 'react'
+import Head from 'next/head'
+import MainLayout from '../src/components/MainLayout'
 
 const Messages: FC = () => (
   <>
@@ -9,6 +9,6 @@ const Messages: FC = () => (
     </Head>
     <MainLayout>Messages</MainLayout>
   </>
-);
+)
 
-export default Messages;
+export default Messages

@@ -1,7 +1,6 @@
-import type { FC } from "react";
-import type { Session } from "next-auth";
-import Head from "next/head";
-import MainLayout from "../src/components/MainLayout";
+import type { FC } from 'react'
+import Head from 'next/head'
+import MainLayout from '../src/components/MainLayout'
 
 const Notifications: FC = () => (
   <>
@@ -10,6 +9,6 @@ const Notifications: FC = () => (
     </Head>
     <MainLayout>Notifications</MainLayout>
   </>
-);
+)
 
-export default Notifications;
+export default Notifications

@@ -1,17 +1,17 @@
-import type { FC } from "react";
+import type { FC } from 'react'
 import {
   VStack,
   StackDivider,
   Text,
   HStack,
   IconButton,
-} from "@chakra-ui/react";
-import { Post } from "@prisma/client";
-import { BiComment, BiRepost, BiHeart, BiShareAlt } from "react-icons/bi";
+} from '@chakra-ui/react'
+import { Post } from '@prisma/client'
+import { BiComment, BiRepost, BiHeart, BiShareAlt } from 'react-icons/bi'
 
 type Props = {
-  post: Post | null;
-};
+  post: Post | null
+}
 
 const PostCard: FC<Props> = ({ post }) => (
   <VStack p={4} divider={<StackDivider />} align="stretch">
@@ -29,7 +29,7 @@ const PostCard: FC<Props> = ({ post }) => (
         borderRadius="full"
         fontSize="xl"
         color="gray.600"
-        _hover={{ background: "blue.50", color: "blue.500" }}
+        _hover={{ background: 'blue.50', color: 'blue.500' }}
       />
       <IconButton
         aria-label="Rechirp"
@@ -38,7 +38,7 @@ const PostCard: FC<Props> = ({ post }) => (
         borderRadius="full"
         fontSize="xl"
         color="gray.600"
-        _hover={{ background: "blue.50", color: "blue.500" }}
+        _hover={{ background: 'blue.50', color: 'blue.500' }}
       />
       <IconButton
         aria-label="Like"
@@ -47,7 +47,7 @@ const PostCard: FC<Props> = ({ post }) => (
         borderRadius="full"
         fontSize="xl"
         color="gray.600"
-        _hover={{ background: "blue.50", color: "blue.500" }}
+        _hover={{ background: 'blue.50', color: 'blue.500' }}
       />
       <IconButton
         aria-label="Like"
@@ -56,11 +56,11 @@ const PostCard: FC<Props> = ({ post }) => (
         borderRadius="full"
         fontSize="xl"
         color="gray.600"
-        _hover={{ background: "blue.50", color: "blue.500" }}
+        _hover={{ background: 'blue.50', color: 'blue.500' }}
       />
     </HStack>
     <div />
   </VStack>
-);
+)
 
-export default PostCard;
+export default PostCard

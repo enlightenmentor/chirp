@@ -1,9 +1,9 @@
-import type { FC } from "react";
-import Head from "next/head";
-import NextLink from "next/link";
-import { useRouter } from "next/router";
-import { signIn, SignInResponse } from "next-auth/react";
-import { useForm } from "react-hook-form";
+import type { FC } from 'react'
+import Head from 'next/head'
+import NextLink from 'next/link'
+import { useRouter } from 'next/router'
+import { signIn } from 'next-auth/react'
+import { useForm } from 'react-hook-form'
 import {
   Button,
   Center,
@@ -16,33 +16,33 @@ import {
   Input,
   VStack,
   Link,
-} from "@chakra-ui/react";
-import { BiLogInCircle, BiMessageDots } from "react-icons/bi";
-import { LINK } from "../../src/constants";
+} from '@chakra-ui/react'
+import { BiLogInCircle, BiMessageDots } from 'react-icons/bi'
+import { LINK } from '../../src/constants'
 
 type FormData = {
-  username: string;
-  password: string;
-};
+  username: string
+  password: string
+}
 
 const Login: FC = () => {
-  const router = useRouter();
+  const router = useRouter()
   const {
     register,
     handleSubmit,
     formState: { errors, isSubmitting },
-  } = useForm<FormData>();
+  } = useForm<FormData>()
 
   const handleRegister = handleSubmit(async ({ username, password }) => {
-    const res = await signIn<"credentials">("credentials", {
+    const res = await signIn<'credentials'>('credentials', {
       redirect: false,
       username,
       password,
-    });
+    })
     if (!res?.error && res?.ok) {
-      router.replace(LINK.HOME);
+      router.replace(LINK.HOME)
     }
-  });
+  })
 
   return (
     <>
@@ -66,7 +66,7 @@ const Login: FC = () => {
                 <Input
                   type="text"
                   placeholder="Username"
-                  {...register("username", { required: true })}
+                  {...register('username', { required: true })}
                 />
                 <FormErrorMessage>{errors.username}</FormErrorMessage>
               </FormControl>
@@ -75,7 +75,7 @@ const Login: FC = () => {
                 <Input
                   type="password"
                   placeholder="Password"
-                  {...register("password", { required: true })}
+                  {...register('password', { required: true })}
                 />
                 <FormErrorMessage>{errors.password}</FormErrorMessage>
               </FormControl>
@@ -102,7 +102,7 @@ const Login: FC = () => {
         </Center>
       </Container>
     </>
-  );
-};
+  )
+}
 
-export default Login;
+export default Login

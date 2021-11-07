@@ -1,11 +1,11 @@
-import type { FC } from "react";
-import { Button, IconButton } from "@chakra-ui/react";
-import { BiMessageDots } from "react-icons/bi";
+import type { FC } from 'react'
+import { Button, IconButton } from '@chakra-ui/react'
+import { BiMessageDots } from 'react-icons/bi'
 
 const CreatePostButton: FC = () => (
   <>
     <Button
-      display={{ base: "none", lg: "flex" }}
+      display={{ base: 'none', lg: 'flex' }}
       leftIcon={<BiMessageDots />}
       borderRadius="full"
       colorScheme="blue"
@@ -16,18 +16,18 @@ const CreatePostButton: FC = () => (
       Chirp
     </Button>
     <IconButton
-      display={{ base: "flex", lg: "none" }}
+      display={{ base: 'flex', lg: 'none' }}
       aria-label="Chirp"
       icon={<BiMessageDots />}
-      position={{ base: "absolute", sm: "static" }}
+      position={{ base: 'absolute', sm: 'static' }}
       right="20px"
       bottom="74px"
       colorScheme="blue"
-      fontSize={{ base: "xl", sm: "lg" }}
-      boxSize={{ base: "56px", sm: "48px" }}
+      fontSize={{ base: 'xl', sm: 'lg' }}
+      boxSize={{ base: '56px', sm: '48px' }}
       borderRadius="full"
     />
   </>
-);
+)
 
-export default CreatePostButton;
+export default CreatePostButton
