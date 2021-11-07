@@ -2,7 +2,7 @@ import type { FC } from "react";
 import Head from "next/head";
 import NextLink from "next/link";
 import { useRouter } from "next/router";
-import { signIn } from "next-auth/react";
+import { signIn, SignInResponse } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import {
   Button,
@@ -34,7 +34,7 @@ const Login: FC = () => {
   } = useForm<FormData>();
 
   const handleRegister = handleSubmit(async ({ username, password }) => {
-    const res = await signIn("credentials", {
+    const res = await signIn<"credentials">("credentials", {
       redirect: false,
       username,
       password,
