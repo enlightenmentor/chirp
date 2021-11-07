@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import Link from "next/link";
 import { Heading, HStack } from "@chakra-ui/react";
-import { Box, Icon } from "@chakra-ui/react";
+import { Icon } from "@chakra-ui/react";
 import { BiMessageDots } from "react-icons/bi";
 import { LINK } from "../../constants";
 
@@ -11,7 +11,7 @@ type Props = {
 };
 
 const HomeLink: FC<Props> = ({ size = 8, withText = false }) => (
-  <Link href={LINK.HOME}>
+  <Link href={LINK.INDEX}>
     <a>
       <HStack
         p={3}

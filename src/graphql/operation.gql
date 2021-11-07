@@ -10,6 +10,12 @@ query Post($id: String!) {
   }
 }
 
+query User($username: String!) {
+  user(name: $username) {
+    ...UserFragment
+  }
+}
+
 mutation RegisterUser($user: UserCreateInput!) {
   createUser(user: $user) {
     ...UserFragment

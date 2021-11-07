@@ -1,7 +1,6 @@
 import type { FC } from "react";
-import { Box, Container, Stack, StackDivider } from "@chakra-ui/react";
+import { Box, Container, Stack } from "@chakra-ui/react";
 import MainNav from "../MainNav";
-import { BREAKPOINT } from "../../constants";
 
 const MainLayout: FC = ({ children }) => (
   <Container

@@ -2,14 +2,14 @@ export const HOME = "home";
 export const MESSAGES = "messages";
 export const NOTIFICATIONS = "notifications";
 export const AUTH = "auth";
-export const LOGIN = "login";
-export const REGISTER = "register";
+export const SIGNIN = "signin";
+export const SIGNUP = "signup";
 export const STATUS = "status";
 
 export const LINK = {
   INDEX: `/`,
-  LOGIN: `/${AUTH}/${LOGIN}`,
-  REGISTER: `/${AUTH}/${REGISTER}`,
+  SIGNIN: `/${AUTH}/${SIGNIN}`,
+  SIGNUP: `/${AUTH}/${SIGNUP}`,
   HOME: `/${HOME}`,
   NOTIFICATIONS: `/${NOTIFICATIONS}`,
   MESSAGES: `/${MESSAGES}`,
@@ -18,9 +18,10 @@ export const LINK = {
 };
 
 export enum BREAKPOINT {
+  "BASE" = "0em",
   "SM" = "30em",
   "MD" = "48em",
   "LG" = "62em",
   "XL" = "80em",
-  "2XL" = "96em",
+  "XXL" = "96em",
 }

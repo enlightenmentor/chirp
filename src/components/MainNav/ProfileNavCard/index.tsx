@@ -1,11 +1,11 @@
 import type { FC } from "react";
 import Link from "next/link";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import { Avatar, HStack, Text, VStack } from "@chakra-ui/react";
 import { LINK } from "../../../constants";
 
 const ProfileNavCard: FC = () => {
-  const [session] = useSession();
+  const { data: session } = useSession({ required: false });
   const user = session?.user;
 
   return user ? (

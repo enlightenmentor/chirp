@@ -120,6 +120,13 @@ export type PostQueryVariables = Exact<{
 
 export type PostQuery = { __typename?: 'Query', post?: { __typename?: 'Post', id: string, content: string, createdAt: any } | null | undefined };
 
+export type UserQueryVariables = Exact<{
+  username: Scalars['String'];
+}>;
+
+
+export type UserQuery = { __typename?: 'Query', user?: { __typename?: 'User', id: string, name: string, email: string, cover?: string | null | undefined, createdAt: any, image?: string | null | undefined, displayName?: string | null | undefined } | null | undefined };
+
 export type RegisterUserMutationVariables = Exact<{
   user: UserCreateInput;
 }>;
@@ -163,6 +170,13 @@ export const PostDocument = gql`
   }
 }
     ${PostFragmentFragmentDoc}`;
+export const UserDocument = gql`
+    query User($username: String!) {
+  user(name: $username) {
+    ...UserFragment
+  }
+}
+    ${UserFragmentFragmentDoc}`;
 export const RegisterUserDocument = gql`
     mutation RegisterUser($user: UserCreateInput!) {
   createUser(user: $user) {
@@ -183,6 +197,9 @@ export function getSdk(client: GraphQLClient, withWrapper: SdkFunctionWrapper = 
     },
     Post(variables: PostQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<PostQuery> {
       return withWrapper((wrappedRequestHeaders) => client.request<PostQuery>(PostDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'Post');
+    },
+    User(variables: UserQueryVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<UserQuery> {
+      return withWrapper((wrappedRequestHeaders) => client.request<UserQuery>(UserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'User');
     },
     RegisterUser(variables: RegisterUserMutationVariables, requestHeaders?: Dom.RequestInit["headers"]): Promise<RegisterUserMutation> {
       return withWrapper((wrappedRequestHeaders) => client.request<RegisterUserMutation>(RegisterUserDocument, variables, {...requestHeaders, ...wrappedRequestHeaders}), 'RegisterUser');

@@ -1,11 +1,10 @@
 import type { FC } from "react";
-import { useSession } from "next-auth/client";
+import { useSession } from "next-auth/react";
 import {
   Box,
   Flex,
   Spacer,
   Stack,
-  useMediaQuery,
   VStack,
 } from "@chakra-ui/react";
 import {
@@ -14,15 +13,16 @@ import {
   BiMessageSquareDetail,
   BiUser,
 } from "react-icons/bi";
-import { BREAKPOINT, LINK } from "../../constants";
+import { LINK } from "../../constants";
 import HomeLink from "../HomeLink";
 import MainNavItem from "./MainNavItem";
 import CreatePostButton from "./CreatePostButton";
 import ProfileNavCard from "./ProfileNavCard";
+import { useBreakpointsContext } from "../BreakpointsProvider";
 
 const MainNav: FC = () => {
-  const [session] = useSession();
-  const [isLGWide] = useMediaQuery(`(min-width: ${BREAKPOINT.LG})`);
+  const { data: session } = useSession({ required: false });
+  const { lg } = useBreakpointsContext();
   const user = session?.user;
 
   return (
@@ -38,7 +38,7 @@ const MainNav: FC = () => {
     >
       <VStack align="stretch" spacing={{ base: 0, sm: 4 }}>
         <Box display={{ base: "none", sm: "flex" }}>
-          <HomeLink size={isLGWide ? 8 : 6} withText={isLGWide} />
+          <HomeLink size={lg ? 8 : 6} withText={lg} />
         </Box>
         <Stack
           direction={{ base: "row", sm: "column" }}
@@ -47,11 +47,11 @@ const MainNav: FC = () => {
           spacing={0}
           py={{ base: 1, sm: 0 }}
         >
+          <MainNavItem href={user ? LINK.HOME : LINK.SIGNIN} icon={BiHomeAlt}>
+            Home
+          </MainNavItem>
           {user && (
             <>
-              <MainNavItem href={LINK.HOME} icon={BiHomeAlt}>
-                Home
-              </MainNavItem>
               <MainNavItem href={LINK.NOTIFICATIONS} icon={BiBell}>
                 Notifications
               </MainNavItem>

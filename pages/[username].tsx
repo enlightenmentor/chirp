@@ -1,26 +1,22 @@
 import type { FC } from "react";
 import type { GetServerSideProps } from "next";
-import type { Session } from "next-auth";
 import Head from "next/head";
-import { getSession, useSession } from "next-auth/client";
 import MainLayout from "../src/components/MainLayout";
-import { LINK } from "../src/constants";
 import ProfilePage from "../src/components/ProfilePage";
+import { gql, User } from "../src/graphql/sdk";
 
 type Props = {
-  session: Session | null;
+  user: User | null;
 };
 
-const Profile: FC = () => {
-  const [session] = useSession();
-
+const Profile: FC<Props> = ({ user }) => {
   return (
     <>
       <Head>
-        <title>@{session?.user?.name} / Chirp</title>
+        <title>@{user?.name} / Chirp</title>
       </Head>
       <MainLayout>
-        <ProfilePage />
+        <ProfilePage user={user}/>
       </MainLayout>
     </>
   );
@@ -28,23 +24,15 @@ const Profile: FC = () => {
 
 export default Profile;
 
-export const getServerSideProps: GetServerSideProps<Props> = async (
+export const getServerSideProps: GetServerSideProps<Props, { username: string }> = async (
   context
 ) => {
-  const session = await getSession({ req: context.req });
-
-  if (!session?.user) {
-    return {
-      redirect: {
-        destination: LINK.LOGIN,
-        permanent: false,
-      },
-    };
-  }
+  const username = context.params?.username;
+  const { user = null } = username ? await gql.User({ username }) : {};
 
   return {
     props: {
-      session,
+      user,
     },
   };
 };

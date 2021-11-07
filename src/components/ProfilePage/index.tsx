@@ -1,6 +1,6 @@
 import type { FC } from "react";
 import { useRouter } from "next/router";
-import { useSession, signOut } from "next-auth/client";
+import { signOut } from "next-auth/react";
 import {
   AspectRatio,
   Avatar,
@@ -13,17 +13,17 @@ import {
   VStack,
 } from "@chakra-ui/react";
 import { BiLogOutCircle } from "react-icons/bi";
-import { LINK } from "../../constants";
+import type { User } from "../../../src/graphql/sdk";
 
-const ProfilePage: FC = () => {
+type Props = {
+  user: User | null;
+};
+
+const ProfilePage: FC<Props> = ({ user }) => {
   const router = useRouter();
-  console.log(router);
-  const [session] = useSession();
-  const user = session?.user;
 
   const handleSignOut = async () => {
     await signOut();
-    router.replace(LINK.INDEX);
   };
 
   return (

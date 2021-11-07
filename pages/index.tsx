@@ -1,7 +1,7 @@
 import type { FC } from "react";
 import type { GetServerSideProps } from "next";
 import type { Session } from "next-auth";
-import { getSession } from "next-auth/client";
+import { getSession } from "next-auth/react";
 import Head from "next/head";
 import Link from "next/link";
 import {
@@ -11,7 +11,6 @@ import {
   HStack,
   Icon,
   Stack,
-  useMediaQuery,
   VStack,
 } from "@chakra-ui/react";
 import { BiLogInCircle, BiUserPlus } from "react-icons/bi";
@@ -53,7 +52,7 @@ const Root: FC = () => (
           spacing={4}
           pt={8}
         >
-          <Link href={LINK.LOGIN}>
+          <Link href={LINK.SIGNIN}>
             <a>
               <Button
                 size="lg"
@@ -66,7 +65,7 @@ const Root: FC = () => (
               </Button>
             </a>
           </Link>
-          <Link href={LINK.REGISTER}>
+          <Link href={LINK.SIGNUP}>
             <a>
               <Button
                 size="lg"
