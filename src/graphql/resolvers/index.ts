@@ -1,4 +1,4 @@
-import { PostResolver } from "./PostResolver";
-import { UserResolver } from "./UserResolver";
+import { PostResolver } from './PostResolver'
+import { UserResolver } from './UserResolver'
 
-export const resolvers = [PostResolver, UserResolver] as const;
+export const resolvers = [PostResolver, UserResolver] as const

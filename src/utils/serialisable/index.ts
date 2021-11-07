@@ -1,35 +1,37 @@
-export type Serialisable<T extends Record<string, any>> = {
+export type Serialisable<T extends Record<string, unknown>> = {
   [K in keyof T]: T[K] extends Date
     ? string
-    : T[K] extends Record<string, any>
+    : T[K] extends Record<string, unknown>
     ? Serialisable<T[K]>
-    : T[K];
-};
+    : T[K]
+}
 
-const isDate = (obj: any): obj is Date => obj instanceof Date;
-const isObject = (obj: any): obj is {} =>
-  typeof obj === "object" && obj !== null;
-const isArray = (obj: any): obj is any[] => Array.isArray(obj);
+const isDate = (obj: unknown): obj is Date => obj instanceof Date
+const isObject = (obj: unknown): obj is Record<string, unknown> =>
+  typeof obj === 'object' && obj !== null
+const isArray = (obj: unknown): obj is unknown[] => Array.isArray(obj)
 
-const serialiseValue = (value: any) => {
+const serialiseValue = (value: unknown) => {
   if (isDate(value)) {
-    return value.toISOString();
+    return value.toISOString()
   } else if (isObject(value) || isArray(value)) {
-    return serialisable(value);
+    return serialisable(value)
   } else {
-    return value;
+    return value
   }
-};
+}
 
-const serialisable = <T extends Record<string, any>>(obj: T | null) => {
+const serialisable = <T extends Record<string, unknown> | unknown[]>(
+  obj: T | null
+) => {
   if (!obj) {
-    return obj;
+    return obj
   }
-  const res = (isArray(obj) ? [] : {}) as Serialisable<T>;
-  for (let key in obj) {
-    res[key] = serialiseValue(obj[key]);
+  const res = (isArray(obj) ? [] : {}) as Serialisable<T>
+  for (const key in obj) {
+    res[key] = serialiseValue(obj[key])
   }
-  return res;
-};
+  return res
+}
 
-export default serialisable;
+export default serialisable

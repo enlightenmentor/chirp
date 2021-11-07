@@ -1,10 +1,10 @@
-export const HOME = "home";
-export const MESSAGES = "messages";
-export const NOTIFICATIONS = "notifications";
-export const AUTH = "auth";
-export const SIGNIN = "signin";
-export const SIGNUP = "signup";
-export const STATUS = "status";
+export const HOME = 'home'
+export const MESSAGES = 'messages'
+export const NOTIFICATIONS = 'notifications'
+export const AUTH = 'auth'
+export const SIGNIN = 'signin'
+export const SIGNUP = 'signup'
+export const STATUS = 'status'
 
 export const LINK = {
   INDEX: `/`,
@@ -15,13 +15,13 @@ export const LINK = {
   MESSAGES: `/${MESSAGES}`,
   PROFILE: (username: string) => `/${username}`,
   STATUS: (username: string, postId: string) => `/${STATUS}/${postId}`,
-};
+}
 
 export enum BREAKPOINT {
-  "BASE" = "0em",
-  "SM" = "30em",
-  "MD" = "48em",
-  "LG" = "62em",
-  "XL" = "80em",
-  "XXL" = "96em",
+  'BASE' = '0em',
+  'SM' = '30em',
+  'MD' = '48em',
+  'LG' = '62em',
+  'XL' = '80em',
+  'XXL' = '96em',
 }

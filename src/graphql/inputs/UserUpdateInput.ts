@@ -1,23 +1,23 @@
-import { InputType, Field } from "type-graphql";
-import { User } from "../models";
+import { InputType, Field } from 'type-graphql'
+import { User } from '../models'
 
 @InputType()
 export class UserUpdateInput implements Partial<User> {
   @Field(() => String, { nullable: true })
-  name?: string;
+  name?: string
 
   @Field(() => String, { nullable: true })
-  email?: string;
+  email?: string
 
   @Field(() => String, { nullable: true })
-  password?: string;
+  password?: string
 
   @Field(() => String, { nullable: true })
-  displayName?: string;
+  displayName?: string
 
   @Field(() => String, { nullable: true })
-  image?: string;
+  image?: string
 
   @Field(() => String, { nullable: true })
-  cover?: string;
+  cover?: string
 }
