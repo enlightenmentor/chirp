@@ -1,7 +1,9 @@
-export type Serialisable<T extends Record<string, unknown>> = {
+type Mappable = Record<string, unknown> | unknown[]
+
+export type Serialisable<T extends Mappable> = {
   [K in keyof T]: T[K] extends Date
     ? string
-    : T[K] extends Record<string, unknown>
+    : T[K] extends Mappable
     ? Serialisable<T[K]>
     : T[K]
 }
@@ -11,7 +13,7 @@ const isObject = (obj: unknown): obj is Record<string, unknown> =>
   typeof obj === 'object' && obj !== null
 const isArray = (obj: unknown): obj is unknown[] => Array.isArray(obj)
 
-const serialiseValue = (value: unknown) => {
+const serialiseValue = <T>(value: T) => {
   if (isDate(value)) {
     return value.toISOString()
   } else if (isObject(value) || isArray(value)) {
@@ -27,11 +29,17 @@ const serialisable = <T extends Record<string, unknown> | unknown[]>(
   if (!obj) {
     return obj
   }
-  const res = (isArray(obj) ? [] : {}) as Serialisable<T>
-  for (const key in obj) {
-    res[key] = serialiseValue(obj[key])
+  if (isArray(obj)) {
+    return obj.reduce<unknown[]>((res, value) => {
+      res.push(serialiseValue(value))
+      return res
+    }, [])
+  } else {
+    return Object.keys(obj).reduce<Record<string, unknown>>((res, key) => {
+      res[key] = serialiseValue(obj[key])
+      return res
+    }, {})
   }
-  return res
 }
 
 export default serialisable
