@@ -21,5 +21,5 @@ export const config = {
 
 export default graphqlHTTP({
   schema,
-  graphiql: true,
+  graphiql: process.env.VERCEL_ENV === "development",
 });
